@@ -1,6 +1,6 @@
 class Character:
 
 	def __init__ (self, name, position, size):
-		self.name = name;
-		self.position = position;
-		self.size = size;
+		self.name = name
+		self.position = position
+		self.size = size
