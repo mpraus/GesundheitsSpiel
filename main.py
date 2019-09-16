@@ -1,14 +1,18 @@
 #! /usr/bin/env python3
 
 import sys, pygame
-pygame.init()
+class MainScreen:
 
-black = 0, 0, 0
-screen = pygame.display.set_mode()
+	black = 0, 0, 0
 
-while(True):
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT: sys.exit()
+	def __init__(self):
+		pygame.init()
 
-	screen.fill(black)
-	pygame.display.flip()
+		mainScreen = pygame.display.set_mode()
+
+		while(True):
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT: sys.exit()
+
+			mainScreen.fill(black)
+			pygame.display.flip()
