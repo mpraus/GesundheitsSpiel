@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 
 import sys, pygame
-class MainScreen:
+
+class Game:
 
 	black = 0, 0, 0
 
@@ -14,5 +15,7 @@ class MainScreen:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT: sys.exit()
 
-			mainScreen.fill(black)
+			mainScreen.fill(self.black)
 			pygame.display.flip()
+            
+Game()
