@@ -1,1 +1,1 @@
-# GesundheitsSpiel
+Open the UML-diagram "architecture.uml" with the open-source tool "ArgoUML"
