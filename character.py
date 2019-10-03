@@ -1,6 +1,6 @@
 import sys, pygame
 
-class Character:
+class Character(pygame.sprite.Sprite):
 
 	def __init__ (self, name, position, size, imageFile):
 		self.name = name
