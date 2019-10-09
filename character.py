@@ -2,9 +2,10 @@ import sys, pygame
 
 class Character(pygame.sprite.Sprite):
 
-	def __init__ (self, name, position, size, imageFile):
+	def __init__ (self, name, x_cord, y_cord, size, imageFile):
 		self.name = name
-		self.position = position
+		self.x_cord = x_cord
+		self.y_cord = y_cord
 		self.size = size
 
 		pygame.sprite.Sprite.__init__(self)
