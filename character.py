@@ -12,4 +12,5 @@ class Character(pygame.sprite.Sprite):
 		self.image = pygame.image.load(imageFile)
 		self.image = pygame.transform.scale(self.image, self.size)
 		self.rect = self.image.get_rect()
-		self.rect.left, self.rect.top = self.position
+		self.rect.left, self.rect.top = self.x_cord, self.y_cord
+		
