@@ -13,12 +13,3 @@ class Character(pygame.sprite.Sprite):
 		self.image = pygame.transform.scale(self.image, self.size)
 		self.rect = self.image.get_rect()
 		self.rect.left, self.rect.top = self.x_cord, self.y_cord
-		
-	def get_y_cord(self):
-		return self.y_cord
-
-	def get_x_cord(self):
-		return self.x_cord
-
-	def get_size(self):
-		return self.size
