@@ -1,0 +1,29 @@
+
+.   #   #   .
+.   .   .   .
+#   #   .   #
+#   #   .   #
+#   .   .   #
+.   .   #   #
+
+player = 0,0
+npc1 = 2,1
+
+___________________
+Levels:
+Picture path
+Text Datei mit level map
+    . = begehbar
+    # = unbegehbar
+    tabs als Trennung
+Positionen von Charakteren
+Zustände des Levels (Name, Trigger Events, Nächster Zustrand)
+Skript der einzelnen Charaktreren (mit zugehörigem Zustand)
+    Name des Charakters
+    Skript
+        Sätze in Reihenfolge
+        (Z1, Z2, ...): text
+        Default: Defaultsatz
+    Leerzeile
+
+
