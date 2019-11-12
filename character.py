@@ -2,6 +2,8 @@ import sys, pygame
 
 class Character(pygame.sprite.Sprite):
 
+	# x_cord and y_cord are the position of the character in the map array of the background 
+	# size = (height, width) of character
 	def __init__ (self, name, x_cord, y_cord, size, imageFile):
 		self.name = name
 		self.x_cord = x_cord
@@ -13,3 +15,7 @@ class Character(pygame.sprite.Sprite):
 		self.image = pygame.transform.scale(self.image, self.size)
 		self.rect = self.image.get_rect()
 		self.rect.left, self.rect.top = self.x_cord, self.y_cord
+
+	def getCoordinates(self):
+		return self.x_cord, self.y_cord
+
