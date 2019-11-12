@@ -11,6 +11,14 @@ class Game:
 	black = 0, 0, 0
 	screenSize = (1366,768)
 
+	def move(self, character, x, y, tileSize, background):
+		background.map_arr[character.x_cord, character.y_cord] = 0
+		character.x_cord += x
+		character.y_cord += y
+		background.map_arr[character.x_cord, character.y_cord] = character.name
+		character.rect.left = character.x_cord * tileSize
+		character.rect.top = character.y_cord * tileSize
+
 	def __init__(self):
 		pygame.init()
 
@@ -36,26 +44,20 @@ class Game:
 					#movement of player
 					if event.key == pygame.K_UP:
 						if 0 <= y_cord - 1 < arr_y and background.map_arr[x_cord, y_cord - 1] not in objects:
-							player.move(0,-1, tileSize)
+							self.move(player, 0, -1, tileSize, background)
 					if event.key == pygame.K_DOWN:
 						if 0 <= y_cord + 2 < arr_y and background.map_arr[x_cord, y_cord + 1] not in objects:
-							player.move(0,1, tileSize)
+							self.move(player, 0, 1, tileSize, background)
 					if event.key == pygame.K_RIGHT:
 						if 0 <= x_cord + 1 < arr_x and background.map_arr[x_cord + 1, y_cord] not in objects:
-							player.move(1,0, tileSize)
+							self.move(player, 1, 0, tileSize, background)
 					if event.key == pygame.K_LEFT:
 						if 0 <= x_cord - 1 < arr_x and background.map_arr[x_cord - 1, y_cord] not in objects:
-							player.move(-1,0, tileSize)
+							self.move(player, -1, 0, tileSize, background)
 				
-			#checks if player has been moved and if so updates map_arr
-			if player_x != player.x_cord or player_y != player.y_cord:
-				background.map_arr[player_x, player_y] = 0
-				background.map_arr[player.getCoordinates()[0], player.getCoordinates()[1]] = player.name
-
 			mainScreen.fill(self.black)
 			mainScreen.blit(pygame.transform.scale(background.image, self.screenSize), background.rect)
 			mainScreen.blit(player.image, player.rect)
 			mainScreen.blit(computerPlayer1.image, computerPlayer1.rect)
 			pygame.display.flip()
-            
 Game()
