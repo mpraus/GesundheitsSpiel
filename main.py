@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 import sys, pygame
 import numpy as np
 from background import Background
@@ -7,46 +5,45 @@ from player import Player
 from character import Character
 
 class Game:
-
-	black = 0, 0, 0
-	screenSize = (1366,768)
+	BLACK = 0, 0, 0
 
 	def __init__(self):
+		screenSize = (1024, 768)
+
 		pygame.init()
-		mainScreen = pygame.display.set_mode(size=(1024, 768))
-		#width, height = mainScreen.get_size()
-		width, height = (1024, 768)
+		mainScreen = pygame.display.set_mode(screenSize)
 		background = Background("images/TestMap.png", "DevMap")
 		player = background.player
-		arr_x, arr_y = background.map_arr.shape
-		objects = background.characterArray.copy()
-		objects.append("#")
+		tilesX, tilesY = background.tileMap.shape
+		gameObjects = background.characterArray.copy()
+		gameObjects.append("#")
+
 		while(True):
-			player_x, player_y = player.getCoordinates()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT: sys.exit()
 				if event.type == pygame.KEYDOWN:
-					x_cord = player.x_cord
-					y_cord = player.y_cord
-								
-					#movement of player
+					playerX = player.position[0]
+					playerY = player.position[1]
+					
 					if event.key == pygame.K_UP:
-						if 0 <= y_cord - 1 and background.map_arr[x_cord, y_cord - 1] not in objects:
+						if 0 <= playerY - 1 and background.tileMap[playerX, playerY - 1] not in gameObjects:
 							background.move(player, 0, -1)
 					if event.key == pygame.K_DOWN:
-						if y_cord + 1 < arr_y and background.map_arr[x_cord, y_cord + 1] not in objects:
+						if playerY + 1 < tilesY and background.tileMap[playerX, playerY + 1] not in gameObjects:
 							background.move(player, 0, 1)
 					if event.key == pygame.K_RIGHT:
-						if x_cord + 1 < arr_x and background.map_arr[x_cord + 1, y_cord] not in objects:
+						if playerX + 1 < tilesX and background.tileMap[playerX + 1, playerY] not in gameObjects:
 							background.move(player, 1, 0)
 					if event.key == pygame.K_LEFT:
-						if 0 <= x_cord - 1  and background.map_arr[x_cord - 1, y_cord] not in objects:
+						if 0 <= playerX - 1  and background.tileMap[playerX - 1, playerY] not in gameObjects:
 							background.move(player, -1, 0)
-			mainScreen.fill(self.black)
-			mainScreen.blit(pygame.transform.scale(background.image, (width, height)), background.rect)
+			
+			mainScreen.fill(self.BLACK)
+			mainScreen.blit(pygame.transform.scale(background.image, screenSize), background.rect)
 			mainScreen.blit(player.image, player.rect)
 			for npc in background.characterArray:
 				mainScreen.blit(npc.image, npc.rect)
-			pygame.display.flip()
 			
+			pygame.display.flip()
+	
 Game()

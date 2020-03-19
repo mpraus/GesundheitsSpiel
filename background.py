@@ -3,7 +3,6 @@ import numpy as np
 from character import Character
 
 class Background(pygame.sprite.Sprite):
-
 	TILESIZE = 64
 
 	def __init__(self, imageFile, mapFile):
@@ -15,12 +14,11 @@ class Background(pygame.sprite.Sprite):
 
 
 	def move(self, character, x, y):
-		self.map_arr[character.x_cord, character.y_cord] = "."
-		character.x_cord += x
-		character.y_cord += y
-		self.map_arr[character.x_cord, character.y_cord] = character.name
-		character.rect.left = character.x_cord * self.TILESIZE
-		character.rect.top = character.y_cord * self.TILESIZE
+		self.tileMap[character.position[0], character.position[1]] = "."
+		character.position = (character.position[0] + x, character.position[1] + y)
+		self.tileMap[character.position[0], character.position[1]] = character.name
+		character.rect.left = character.position[0] * self.TILESIZE
+		character.rect.top = character.position[1] * self.TILESIZE
 
 
 	def loadLevel(self, filename):
@@ -37,24 +35,23 @@ class Background(pygame.sprite.Sprite):
 			else:
 				mapLine.append(line)
 
-		self.map_arr = np.zeros((len(mapLine[0].split()), len(mapLine))).astype('U256')
+		self.tileMap = np.zeros((len(mapLine[0].split()), len(mapLine))).astype('U256')
 		i = 0
 		for line in mapLine:
 			line = line.split()
 			j = 0
 			for char in line:
-				self.map_arr[j,i] = line[j]
+				self.tileMap[j,i] = line[j]
 				j+=1
 			i+=1
 
 		self.characterArray = []
 		for line in characterLine:
 			if line[0] == 'player':
-				character = Character(line[1], int(line[2][1]), int(line[2][3]), (self.TILESIZE,self.TILESIZE), line[3], self.TILESIZE)
+				character = Character(line[1], (int(line[2][1]), int(line[2][3])), self.TILESIZE, line[3])
 				self.player = character
-				self.map_arr[int(line[2][1]), int(line[2][3])] = character
+				self.tileMap[int(line[2][1]), int(line[2][3])] = character
 			elif line[0] == 'npc':
-				#needs to be changed once we know what we're going to do with npcs
-				character = Character(line[1], int(line[2][1]), int(line[2][3]), (self.TILESIZE,self.TILESIZE), line[3], self.TILESIZE)
+				character = Character(line[1], (int(line[2][1]), int(line[2][3])), self.TILESIZE, line[3])
 				self.characterArray.append(character)
-				self.map_arr[int(line[2][1]), int(line[2][3])] = character
+				self.tileMap[int(line[2][1]), int(line[2][3])] = character
