@@ -11,5 +11,5 @@
 #   .   .   .   #   .   .   .   .   .   .   .   .   .   .   #
 #   .   .   .   #   #   #   #   #   #   #   #   #   #   #   #
 
-player = 0,0
-npc1 = 2,1
+player	Player1	(1,1)	images/harpy.png
+npc	Arzt	(7,6)	images/minotaur.png
