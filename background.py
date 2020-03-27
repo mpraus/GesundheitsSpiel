@@ -12,14 +12,14 @@ class Background(pygame.sprite.Sprite):
 		self.rect.left, self.rect.top = [0,0]
 		self.loadLevel(mapFile)
 
-
-	def move(self, character, x, y):
-		self.tileMap[character.position[0], character.position[1]] = "."
-		character.position = (character.position[0] + x, character.position[1] + y)
-		self.tileMap[character.position[0], character.position[1]] = character.name
-		character.rect.left = character.position[0] * self.TILESIZE
-		character.rect.top = character.position[1] * self.TILESIZE
-
+	def move(self, character, vector):
+		newPosition = (character.position[0] + vector[0], character.position[1] + vector[1])
+		if self.tileMap[newPosition] == ".":
+			self.tileMap[character.position] = "."
+			self.tileMap[newPosition] = character.name
+			character.position = (newPosition)
+			character.rect.left = character.position[0] * self.TILESIZE
+			character.rect.top = character.position[1] * self.TILESIZE
 
 	def loadLevel(self, filename):
 		levelDoc = open(filename)

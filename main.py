@@ -15,8 +15,6 @@ class Game:
 		background = Background("images/TestMap.png", "DevMap")
 		player = background.player
 		tilesX, tilesY = background.tileMap.shape
-		gameObjects = background.characterArray.copy()
-		gameObjects.append("#")
 
 		while(True):
 			for event in pygame.event.get():
@@ -26,17 +24,20 @@ class Game:
 					playerY = player.position[1]
 					
 					if event.key == pygame.K_UP:
-						if 0 <= playerY - 1 and background.tileMap[playerX, playerY - 1] not in gameObjects:
-							background.move(player, 0, -1)
+						if 0 <= playerY - 1:
+							background.move(player, (0, -1))
+						
 					if event.key == pygame.K_DOWN:
-						if playerY + 1 < tilesY and background.tileMap[playerX, playerY + 1] not in gameObjects:
-							background.move(player, 0, 1)
+						if playerY + 1 < tilesY:
+							background.move(player, (0, 1))
+
 					if event.key == pygame.K_RIGHT:
-						if playerX + 1 < tilesX and background.tileMap[playerX + 1, playerY] not in gameObjects:
-							background.move(player, 1, 0)
+						if playerX + 1 < tilesX:
+							background.move(player, (1, 0))
+
 					if event.key == pygame.K_LEFT:
-						if 0 <= playerX - 1  and background.tileMap[playerX - 1, playerY] not in gameObjects:
-							background.move(player, -1, 0)
+						if 0 <= playerX - 1:
+							background.move(player, (-1, 0))
 			
 			mainScreen.fill(self.BLACK)
 			mainScreen.blit(pygame.transform.scale(background.image, screenSize), background.rect)
