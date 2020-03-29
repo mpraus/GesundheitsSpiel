@@ -7,10 +7,10 @@ from character import Character
 class Game:
 	def __init__(self):
 		BLACK = 0, 0, 0
-		screenSize = (1024, 768)
+		screenSize = (1400, 900)
 
 		pygame.init()
-		mainScreen = pygame.display.set_mode(screenSize)
+		mainScreen = pygame.display.set_mode(screenSize, pygame.RESIZABLE)
 		background = Background("images/TestMap.png", "DevMap", screenSize)
 		player = background.player
 		tilesX, tilesY = background.tileMap.shape
@@ -18,7 +18,10 @@ class Game:
 		while(True):
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT: sys.exit()
-				if event.type == pygame.KEYDOWN:
+				elif event.type == pygame.VIDEORESIZE:
+					screenSize = event.size
+					background.calculateMapSize(screenSize)
+				elif event.type == pygame.KEYDOWN:
 					playerX, playerY = player.position
 					if event.key == pygame.K_UP:
 						if 0 <= playerY - 1: background.move(player, (0, -1))
@@ -30,11 +33,11 @@ class Game:
 						if 0 <= playerX - 1: background.move(player, (-1, 0))
 			
 			mainScreen.fill(BLACK)
-			mainScreen.blit(pygame.transform.scale(background.image, screenSize), background.rect)
+			mainScreen.blit(pygame.transform.scale(background.image, background.mapSize), background.rect)
 			mainScreen.blit(player.image, player.rect)
 			for npc in background.characterArray:
 				mainScreen.blit(npc.image, npc.rect)
-			
+
 			pygame.display.flip()
 	
 Game()
