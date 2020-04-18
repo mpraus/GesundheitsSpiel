@@ -38,7 +38,7 @@ class Background(pygame.sprite.Sprite):
 				character = Character(line[1], (int(line[2][1]), int(line[2][3])), line[3])
 				self.characterArray.append(character)
 				self.tileMap[int(line[2][1]), int(line[2][3])] = character
-
+		self.imageFile = imageFile;
 		self.calculateMapSize(screenSize)
 
 	def move(self, character, vector):
@@ -67,7 +67,7 @@ class Background(pygame.sprite.Sprite):
 		self.tileSize = min(quotientX, quotientY)
 		self.mapSize = (mapLengthX * self.tileSize, mapLengthY * self.tileSize)
 
-		self.image = pygame.image.load(imageFile)
+		self.image = pygame.image.load(self.imageFile)
 		self.player.image = pygame.image.load(self.player.imageFile)
 		self.player.image = pygame.transform.scale(self.player.image, (self.tileSize, self.tileSize))
 		self.rect = pygame.Rect((0, 0), self.mapSize)
