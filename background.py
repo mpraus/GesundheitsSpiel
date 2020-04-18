@@ -28,8 +28,6 @@ class Background(pygame.sprite.Sprite):
 				x+=1
 			y+=1
 
-		self.image = pygame.image.load(imageFile)
-
 		self.characterArray = []
 		for line in characterLine:
 			if line[0] == 'player':
@@ -67,13 +65,12 @@ class Background(pygame.sprite.Sprite):
 			quotientY = int(mapLengthY / screenSize[1])
 
 		self.tileSize = min(quotientX, quotientY)
-
 		self.mapSize = (mapLengthX * self.tileSize, mapLengthY * self.tileSize)
 
-		self.rect = pygame.Rect((0, 0), self.mapSize)
-
+		self.image = pygame.image.load(imageFile)
 		self.player.image = pygame.image.load(self.player.imageFile)
 		self.player.image = pygame.transform.scale(self.player.image, (self.tileSize, self.tileSize))
+		self.rect = pygame.Rect((0, 0), self.mapSize)
 		self.player.rect = self.player.image.get_rect()
 		self.player.rect.left, self.player.rect.top = self.player.position[0] * self.tileSize, self.player.position[1] * self.tileSize
 
